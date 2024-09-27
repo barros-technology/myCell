@@ -1,12 +1,10 @@
 import { IMember } from "./IMember";
 
-export interface ICell{
+export interface ICell {
     id: number;
     name: string;
     address: string;
     cellDay: string;
-    time: number;
-    member?: IMember[]
-
-
-}
+    timeCell: string;
+    member?: IMember[] | undefined; // Tornando a propriedade opcional
+  }

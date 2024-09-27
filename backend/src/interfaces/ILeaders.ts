@@ -4,8 +4,8 @@ export interface ILeaders{
     id: number;
     name: string;
     email: string;
-    phone: number;
+    phone: string;
     address: string;
     password: string
-    gal?: IGal[]
+    gal?: IGal[] | undefined
 }

@@ -1,8 +1,9 @@
 import express, { json, Request, Response } from "express";
-import { membersRouter } from "./routes/member.routes";
+
 import { cellRouter } from "./routes/cell.routes";
 import { leaderRouter } from "./routes/leader.routes";
 import { galRouter } from "./routes/gal.routes";
+import { membersRouter } from "./routes/member.routes";
 
 const app = express();
 

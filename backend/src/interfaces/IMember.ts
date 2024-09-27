@@ -7,5 +7,5 @@ export interface IMember{
     phone: number;
     address: string;
     password: string;
-    cell?: ICell[]
+    cell?: ICell[] | undefined
 }

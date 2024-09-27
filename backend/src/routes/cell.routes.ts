@@ -1,19 +1,21 @@
 import { Request, Response, Router } from "express";
+import { CellControllers } from "../controllers/cell.controllers";
+import { IsCellIdValid } from "../middlewares/isCellIdValid.middleware";
 
 export const cellRouter = Router();
 
-cellRouter.get("/", (req: Request, res: Response) => {
-    return res.json({ message: "Leitura realizada com sucesso"});
-})
+const cellControllers = new CellControllers();
 
-cellRouter.post("/", (req: Request, res: Response) => {
-    return res.status(201).json({message: "Criação realizada com sucesso"});
-})
+cellRouter.get("/", cellControllers.getCells);
 
-cellRouter.put("/", (req: Request, res: Response) => {
-    return res.json({message: "Atualização realizada com sucesso!"});
-})
+cellRouter.get("/:id", IsCellIdValid.execute, cellControllers.getOneCell);
 
-cellRouter.delete("/", (req: Request, res: Response) => {
-    return res.json({message: "Exclusão realizada com sucesso"})
-})
+cellRouter.post("/", cellControllers.createCell);
+
+cellRouter.put("/:id", IsCellIdValid.execute, cellControllers.updateCell);
+
+cellRouter.patch("/:id", IsCellIdValid.execute, cellControllers.partialUpdateCell);
+
+cellRouter.delete("/:id", IsCellIdValid.execute, cellControllers.deleteCell);
+
+//Agora falta atualizar o router do gal, leader e member

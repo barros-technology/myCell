@@ -1,19 +1,21 @@
-import { Request, Response, Router } from "express";
+import {  Router } from "express";
+import { MembersControllers } from "../controllers/member.controllers";
+import { IsMemberIdValid } from "../middlewares/isMemberIdVAlid.middleware";
+
+
 
 export const membersRouter = Router();
 
-membersRouter.get("/", (req: Request, res: Response) => {
-    return res.json({ message: "Leitura realizada com sucesso!"});
-})
+const membersControllers = new MembersControllers();
 
-membersRouter.post("/", (req: Request, res: Response) => {
-    return res.status(201).json({message: "Criação realizada com sucesso"});
-})
+membersRouter.get("/", membersControllers.getMembers);
 
-membersRouter.put("/", (req: Request, res: Response) => {
-    return res.json({message: "Atualização realizada com sucesso!"});
-})
+membersRouter.get("/:id", IsMemberIdValid.execute, membersControllers.getOneMember);
 
-membersRouter.delete("/", (req: Request, res: Response) => {
-    return res.json({message: "Exclusão realizada com sucesso"})
-})
+membersRouter.post("/", membersControllers.createMember);
+
+membersRouter.put("/:id", IsMemberIdValid.execute, membersControllers.updateMember);
+
+membersRouter.patch("/:id", IsMemberIdValid.execute, membersControllers.partialUpdateMember);
+
+membersRouter.delete("/:id", IsMemberIdValid.execute, membersControllers.deleteMember);
