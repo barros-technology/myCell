@@ -1,11 +1,15 @@
-import express, { json, Request, Response } from "express";
-
+import express, { json } from "express";
+import helmet from "helmet";
+import "express-async-errors";
 import { cellRouter } from "./routes/cell.routes";
 import { leaderRouter } from "./routes/leader.routes";
 import { galRouter } from "./routes/gal.routes";
 import { membersRouter } from "./routes/member.routes";
+import { HandleErrors } from "./errors/handleErrors.middleware";
 
-const app = express();
+export const app = express();
+
+app.use(helmet);
 
 app.use(json());
 
@@ -17,8 +21,5 @@ app.use("/leader", leaderRouter);
 
 app.use("/gal", galRouter);
 
-const port = 3000;
+app.use(HandleErrors.execute);
 
-app.listen(port, () => {
-    console.log(`API myCell sucessfully started on port ${port}`);
-})
